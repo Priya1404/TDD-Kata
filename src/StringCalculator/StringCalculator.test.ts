@@ -38,4 +38,11 @@ describe("StringCalculator", () => {
           .toBe(15);
       });
 
+      test("should support custom delimiters", () => {
+        expect(calculator.add("//;\n1;2"))
+          .toBe(3);
+        expect(calculator.add("//|\n4|5|6"))
+          .toBe(15);
+      });
+
 });
