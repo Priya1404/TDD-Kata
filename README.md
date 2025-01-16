@@ -6,18 +6,18 @@ This project implements a String Calculator that performs summation based on dif
 ## **Features**
 - Adds numbers provided in a delimited string.
 - Supports:
-a. Default delimiters: , (comma) and \n (newline).
-b. Custom single-character delimiters (e.g., //;\n1;2).
-c. Multiple custom single-character delimiters (e.g., //[*][%]\n1*2%3).
-d. Ignoring numbers greater than 1000.
+1. Default delimiters: , (comma) and \n (newline).
+2. Custom single-character delimiters (e.g., //;\n1;2).
+3. Multiple custom single-character delimiters (e.g., //[*][%]\n1*2%3).
+4. Ignoring numbers greater than 1000.
 - Throws errors for negative numbers, listing all negative values in the error message.
 
 ### **How to use**
 1. Clone the repository:
 2. Install dependencies:
-    yarn install
+    `yarn install`
 3. Run the tests:
-    yarn test
+    `yarn test`
 
 ### ** Examples ** 
 
@@ -40,7 +40,7 @@ console.log(calculator.add("-1,2,-3")); // Throws: Negative numbers not allowed:
 
 ### **Run Tests**
 The project uses Jest for unit testing. To run the tests:
-    npm test
+    `yarn test`
 
 ## **Project Structure**
 - StringCalculator.ts: Implementation of the String Calculator.
