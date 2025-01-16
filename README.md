@@ -19,6 +19,10 @@ This project implements a String Calculator that performs summation based on dif
 3. Run the tests:
     `yarn test`
 
+### ** Screenshots **
+
+<img width="838" alt="Screenshot 2025-01-16 at 7 21 31 PM" src="https://github.com/user-attachments/assets/6a7f32c0-5300-4308-a2ce-0e0498f5f73b" />
+
 ### ** Examples ** 
 
 const calculator = new StringCalculator();
