@@ -45,4 +45,9 @@ describe("StringCalculator", () => {
           .toBe(15);
       });
 
+      test("should throw an error for negative numbers", () => {
+        expect(() => calculator.add("-1,2,-3"))
+          .toThrow("Negative numbers not allowed: -1, -3");
+      });
+
 });
