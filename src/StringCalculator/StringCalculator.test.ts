@@ -26,4 +26,16 @@ describe("StringCalculator", () => {
           .toBe(30);
       });
 
+      test("should return the sum of ten numbers (or any amount of numbers. )", () => {
+        expect(calculator.add("1,5,8,3,8,2,9,3,1,3"))
+          .toBe(43);
+      });
+
+      test("should handle newlines as delimiters", () => {
+        expect(calculator.add("1\n2,3"))
+          .toBe(6);
+        expect(calculator.add("4\n5\n6"))
+          .toBe(15);
+      });
+
 });
