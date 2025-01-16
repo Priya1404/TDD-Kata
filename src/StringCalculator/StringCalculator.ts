@@ -2,17 +2,22 @@ export class StringCalculator {
     add(numbers: string): number {
         if (!numbers) return 0;
 
-        let delimiter = /,|\n/;
+        let delimiter = /,|\n/; // default delimiters : comma and newline
 
         if (numbers.startsWith("//")) {
-            const delimiterMatch = numbers.match(/^\/\/(.+)\n/);
-            if (delimiterMatch) {
-              delimiter = new RegExp(delimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); 
-              // Note: escaping special characters(like *, |) as they have special meaning in regular expression
+            const customDelimiterMatch = numbers.match(/^\/\/\[(.+)\]\n/); // For long delimiters like [***]
+            const singleDelimiterMatch = numbers.match(/^\/\/(.+)\n/); // For single-character delimiters like ;
+            
+            // Note: escaping special characters(like *, |) as they have special meaning in regular expression
               // '\\$&' ensures they are treated as literal characters
-              numbers = numbers.substring(delimiterMatch[0].length);
+            if (customDelimiterMatch) {
+                delimiter = new RegExp(customDelimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); 
+                numbers = numbers.substring(customDelimiterMatch[0].length);
+            } else if (singleDelimiterMatch) {
+                delimiter = new RegExp(singleDelimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+                numbers = numbers.substring(singleDelimiterMatch[0].length);
             }
-          }
+        }
         
         const numArray = numbers.split(delimiter).map((num) => parseInt(num, 10));
         const negatives = numArray.filter((num) => num < 0);
