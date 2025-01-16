@@ -5,17 +5,26 @@ export class StringCalculator {
         let delimiter = /,|\n/; // default delimiters : comma and newline
 
         if (numbers.startsWith("//")) {
-            const customDelimiterMatch = numbers.match(/^\/\/\[(.+)\]\n/); // For long delimiters like [***]
-            const singleDelimiterMatch = numbers.match(/^\/\/(.+)\n/); // For single-character delimiters like ;
-            
-            // Note: escaping special characters(like *, |) as they have special meaning in regular expression
-              // '\\$&' ensures they are treated as literal characters
-            if (customDelimiterMatch) {
-                delimiter = new RegExp(customDelimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); 
-                numbers = numbers.substring(customDelimiterMatch[0].length);
-            } else if (singleDelimiterMatch) {
-                delimiter = new RegExp(singleDelimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-                numbers = numbers.substring(singleDelimiterMatch[0].length);
+            const multipleDelimitersMatch = numbers.match(/^\/\/(\[.+\])+\n/);
+            if (multipleDelimitersMatch) {
+                // Extract all delimiters enclosed in square brackets
+                const delimiters = multipleDelimitersMatch[0]
+                    .match(/\[.*?\]/g) 
+                    ?.map((d) => d.slice(1, -1))
+                    .map((d) => d.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) ?? []; 
+
+                    // Note: escaping special characters(like *, |) as they have special meaning in regular expression
+                    // '\\$&' ensures they are treated as literal characters
+
+                delimiter = new RegExp(delimiters?.join("|")); // Combine all delimiters into a regex
+                numbers = numbers.substring(multipleDelimitersMatch[0].length);
+            } else {
+                // Handle single-character or single long delimiter
+                const singleDelimiterMatch = numbers.match(/^\/\/(.+)\n/);
+                if (singleDelimiterMatch) {
+                    delimiter = new RegExp(singleDelimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+                    numbers = numbers.substring(singleDelimiterMatch[0].length);
+                }
             }
         }
         

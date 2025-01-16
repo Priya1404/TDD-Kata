@@ -62,4 +62,9 @@ describe("StringCalculator", () => {
           .toBe(6);
       });
 
+      test("should handle multiple delimiters", () => {
+        expect(calculator.add("//[*][%]\n1*2%3"))
+          .toBe(6);
+      });
+
 });
